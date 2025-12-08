@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>主页</title>
+  <style>
+    /* 基础样式 - 统一规范 */
+    html {
+      font-size: 16px;
+    }
+    html, * {
+      -webkit-user-select: text !important;
+      -moz-user-select: text !important;
+    }
+    * {
+      padding: 0;
+      margin: 0;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    body {
+      text-align: center;
+      /* 动态渐变背景 */
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+      padding-bottom: 0.625rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    /* 背景渐变动画 */
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* 顶部区域样式 */
+    .top-section {
+      width: 100%;
+      padding-top: 0.3125rem;
+      padding-bottom: 0.125rem;
+      z-index: 10;
+    }
+    .search_part {
+      margin: 0 auto 0.125rem;
+      display: flex;
+      justify-content: center;
+    }
+    /* 毛玻璃搜索栏 */
+    .search_bar {
+      background-color: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 3.125rem;
+      display: flex;
+      align-items: center;
+      width: 135%;
+      max-width: 56.25rem;
+      height: 2.8125rem;
+      position: relative;
+      z-index: 10;
+      padding: 0 0.75rem;
+      box-shadow: 0 0 0.9375rem rgba(0, 0, 0, 0.08);
+      margin-top: 2.8125rem;
+      transition: width 0.3s ease, background-color 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .search_bar:focus-within {
+      width: 150%;
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+    .search_input_wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    #search_input {
+      width: 100%;
+      height: 2.1875rem;
+      background-color: transparent;
+      border: none;
+      outline: 0;
+      font-size: 1.1rem;
+      color: #2c3e50;
+      padding: 0 0.5rem;
+      border-radius: 3.125rem;
+      transition: all 0.3s ease;
+    }
+    #search_input:focus {
+      box-shadow: 0 0 0.5rem rgba(44, 62, 80, 0.15);
+    }
+    #search_submit {
+      outline: 0;
+      height: 2.1875rem;
+      color: #2c3e50;
+      font-size: 1.3rem;
+      font-weight: 500;
+      border: none;
+      background-color: transparent;
+      padding: 0 0.625rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      margin-left: 0.5rem;
+    }
+    #search_submit:hover {
+      color: #e73c7e;
+    }
+    #suggest {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 2.8125rem;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      line-height: 2.1875rem;
+      z-index: 100;
+      display: none;
+      border-radius: 0 0 0.625rem 0.625rem;
+      box-shadow: 0 0.25rem 0.375rem rgba(0,0,0,0.08);
+      margin-top: 0.3125rem;
+    }
+    #suggest li {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      text-align: left;
+      padding-left: 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    #suggest li:last-child {
+      border-bottom: none;
+    }
+    #suggest li:hover {
+      background: rgba(255, 255, 255, 0.7);
+    }
+    #suggest li b {
+      float: right;
+      width: 2.75rem;
+      height: 2.1875rem;
+      background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAI5JREFUSEtjZCACLF261J6RkbELpPT///9l0dHRB4nQRlgJ0ODny5Yt+w/CIDZhHUSqgBkKo4nURljZqMHwMBohQQFK/ECvnkT3LgX8kyAzGZATPwWGgTMPSiYCGvyEWgYiGfyEAcjxoKaroWZ5EM52QBUjJLkRExajQUH7Qgg5E4HYxMQLUWpgmYiUxA8AOdLMz+iDKvIAAAAASUVORK5CYII=) no-repeat scroll center center rgba(255,255,255,0.5);
+      background-size: 0.6875rem;
+    }
+    #suggest .close {
+      text-align: right;
+      font-size: 0.875rem;
+      color: #888;
+      padding-right: 0.75rem;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 0 0 0.625rem 0.625rem;
+    }
+
+    /* 书签区域样式 */
+    .bookmark-section {
+      width: 100%;
+      padding: 0.125rem 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.46875rem;
+      max-width: 37.5rem;
+      margin: 0 auto 0.75rem;
+      scrollbar-width: thin;
+      scrollbar-color: #e73c7e #f0f0f0;
+    }
+    .bookmark-section::-webkit-scrollbar {
+      height: 0.25rem;
+    }
+    .bookmark-section::-webkit-scrollbar-thumb {
+      background-color: #e73c7e;
+      border-radius: 0.125rem;
+    }
+    .box {
+      animation: fadeInDown 1s;
+      animation-delay: calc(var(--animation-order) * 0.1s);
+      opacity: 0;
+      animation-fill-mode: forwards;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 6rem;
+      border: 0;
+      transition: all 0.3s ease;
+    }
+    .box:hover {
+      transform: translateY(-0.3125rem);
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
+    }
+    .box a {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
+    }
+    .url {
+      color: #2c3e50;
+      height: auto;
+      line-height: 1.2rem;
+      width: 4.6875rem;
+      font-size: 0.9rem;
+      white-space: normal;
+      overflow: hidden;
+      margin: auto;
+      text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+      padding-top: 0.125rem;
+      padding-bottom: 0.25rem;
+      transition: color 0.3s ease;
+      text-align: center;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      text-shadow: 0 0 0.125rem rgba(255, 255, 255, 0.6);
+      font-weight: 700 !important; /* 中间内容（书签文字）加粗 */
+    }
+    .box:hover .url {
+      color: #e73c7e;
+    }
+    /* 图标背景完全透明（核心修改） */
+    .icon {
+      width: 2.8125rem;
+      height: 2.8125rem;
+      max-width: 4.21875rem;
+      object-fit: contain;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+      background: transparent !important; /* 强制完全透明 */
+      padding: 0.25rem;
+      border: none;
+    }
+    .box:hover .icon {
+      transform: scale(1.1);
+    }
+
+    /* 中间内容区域样式 - 完全透明（核心修改） */
+    .middle-section {
+      width: 100%;
+      padding: 0.125rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      justify-content: center;
+    }
+    /* 一言背景完全透明 */
+    .hitokoto {
+      margin-bottom: 0.28125rem;
+      padding: 0.5625rem;
+      background: transparent !important; /* 强制完全透明 */
+      border-radius: 0.625rem;
+      max-width: 31.25rem;
+      width: 90%;
+      text-align: center;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease;
+      border: none !important; /* 移除所有边框 */
+    }
+    .hitokoto:hover {
+      box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.08);
+    }
+    #hitokoto {
+      font-size: 1rem;
+      color: #2c3e50;
+      line-height: 1.4;
+      font-weight: 700 !important; /* 一言字体加粗 */
+      text-shadow: 0 0 0.125rem rgba(255, 255, 255, 0.8); /* 增强文字可读性 */
+    }
+    .nav-bookmarks {
+      width: 100%;
+      padding: 0.125rem 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.46875rem;
+      max-width: 37.5rem;
+      margin: 0 auto 0.75rem;
+      scrollbar-width: thin;
+      scrollbar-color: #e73c7e #f0f0f0;
+    }
+    .nav-bookmarks::-webkit-scrollbar {
+      height: 0.25rem;
+    }
+    .nav-bookmarks::-webkit-scrollbar-thumb {
+      background-color: #e73c7e;
+      border-radius: 0.125rem;
+    }
+    .nav-bookmarks .box {
+      width: 6.375rem;
+    }
+    /* 今日诗词背景完全透明 */
+    #poem_container {
+      margin: 0.28125rem auto;
+      max-width: 31.25rem;
+      width: 90%;
+      padding: 0.5625rem;
+      background: transparent !important; /* 强制完全透明 */
+      border-radius: 0.625rem;
+      text-align: center;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease;
+      border: none !important; /* 移除所有边框 */
+    }
+    #poem_container:hover {
+      box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.08);
+    }
+    #poem_sentence {
+      font-size: 1.5rem;
+      font-family: KaiTi, "楷体", serif;
+      margin-bottom: 0.1875rem;
+      color: #2c3e50;
+      line-height: 1.6;
+      font-weight: 700 !important; /* 诗词内容加粗 */
+      text-shadow: 0 0 0.125rem rgba(255, 255, 255, 0.8);
+    }
+    #poem_info {
+      font-size: 0.8rem;
+      color: #666;
+      text-shadow: 0 0 0.125rem rgba(255, 255, 255, 0.8);
+      font-weight: 600 !important; /* 诗词作者信息加粗 */
+    }
+    /* 透明风格骨架屏 */
+    .poem-skeleton {
+      width: 100%;
+      height: 2.5rem;
+      background: linear-gradient(90deg, rgba(255,255,255,0.2) 25%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.2) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.5s infinite;
+      border-radius: 0.3125rem;
+      margin-bottom: 0.1875rem;
+    }
+    .poem-info-skeleton {
+      width: 60%;
+      height: 0.8rem;
+      background: linear-gradient(90deg, rgba(255,255,255,0.2) 25%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.2) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.5s infinite;
+      border-radius: 0.125rem;
+      margin: 0 auto;
+    }
+    @keyframes skeleton-loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* 底部区域样式 */
+    .bottom-section {
+      width: 100%;
+      padding: 0.125rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #timeshow {
+      width: 100%;
+      height: 1rem;
+      line-height: 1rem;
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin: 0.125rem 0;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.1);
+    }
+
+    /* 粒子特效容器 */
+    #particles-js {
+      position: fixed;
+      z-index: -1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* 看板娘样式 */
+    #live2d-widget {
+      position: fixed;
+      bottom: 0.9375rem;
+      left: 0.9375rem;
+      z-index: 9999;
+      width: 8.125rem;
+      height: 10.625rem;
+      cursor: move;
+      transition: all 0.3s ease;
+      user-select: none;
+    }
+    #live2d-widget:hover {
+      transform: scale(1.05);
+    }
+    #live2dcanvas {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* 诗词弹窗样式 */
+    .poem-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+    .poem-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .poem-modal-content {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      padding: 1.25rem;
+      border-radius: 0.625rem;
+      max-width: 90%;
+      width: 31.25rem;
+      max-height: 80vh;
+      overflow-y: auto;
+      text-align: left;
+      box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .poem-modal-title {
+      font-size: 1.5rem;
+      font-family: KaiTi, "楷体", serif;
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
+      text-align: center;
+      font-weight: 700; /* 弹窗诗词标题加粗 */
+    }
+    .poem-modal-sentence {
+      font-size: 1.2rem;
+      font-family: KaiTi, "楷体", serif;
+      color: #333;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+      white-space: pre-line;
+      font-weight: 600; /* 弹窗诗词内容加粗 */
+    }
+    .poem-modal-author {
+      font-size: 0.9rem;
+      color: #888;
+      text-align: center;
+      margin-bottom: 1rem;
+      font-weight: 600; /* 弹窗作者信息加粗 */
+    }
+    .poem-modal-note {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+    .poem-modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.2rem;
+      color: #fff;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      text-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.3);
+    }
+    .poem-modal-close:hover {
+      color: #e73c7e;
+    }
+
+    /* 动画定义 */
+    @keyframes flipInX {
+      0% { transform: perspective(25rem) rotateX(90deg); opacity: 0; }
+      40% { transform: perspective(25rem) rotateX(-10deg); }
+      70% { transform: perspective(25rem) rotateX(10deg); }
+      100% { transform: perspective(25rem) rotateX(0); opacity: 1; }
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-1.25rem); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    /* 加载动画 */
+    .loading {
+      display: inline-block;
+      width: 1.25rem;
+      height: 1.25rem;
+      border: 0.1875rem solid rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      border-top-color: #e73c7e;
+      animation: spin 1s ease-in-out infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* 响应式适配 */
+    @media (max-width: 64rem) { /* 1024px */
+      .search_bar {
+        width: 142.5%;
+        max-width: 46.875rem;
+        height: 2.625rem;
+        margin-top: 2.625rem;
+      }
+      #search_input { font-size: 1rem; }
+      #search_submit { font-size: 1.2rem; }
+      .box { width: 5.0625rem; margin: 0.28125rem; }
+      .nav-bookmarks .box { width: 5.625rem; }
+      .icon { width: 2.53125rem; height: 2.53125rem; }
+      .url { width: 3.375rem; font-size: 0.85rem; -webkit-line-clamp: 2; }
+      #poem_sentence { font-size: 1.425rem; }
+      #timeshow { font-size: 0.85rem; height: 0.9375rem; line-height: 0.9375rem; }
+      #live2d-widget { width: 7.5rem; height: 10rem; bottom: 0.75rem; left: 0.75rem; }
+    }
+    @media (min-width: 64rem) { /* 桌面设备 */
+      .middle-section { max-width: 80vw; margin: 0 auto; }
+      .bookmark-section {
+        flex-direction: row; justify-content: flex-start; flex-wrap: nowrap;
+        overflow-x: auto; padding: 0.25rem 0; max-width: 100%;
+        padding-left: 1rem; padding-right: 1rem;
+      }
+      .nav-bookmarks {
+        flex-direction: row; justify-content: flex-start; flex-wrap: nowrap;
+        gap: 0.9375rem; padding: 0.25rem 0; max-width: 100%;
+        padding-left: 1rem; padding-right: 1rem;
+      }
+      .hitokoto { max-width: 40rem; width: 60%; }
+      #poem_container { max-width: 40rem; width: 60%; }
+      .box { flex: 0 0 auto; margin: 0 0.46875rem; }
+      .nav-bookmarks .box { flex: 0 0 auto; margin: 0 0.46875rem; }
+    }
+    @media (max-width: 48rem) { /* 768px - 移动设备，图标+时间放大1.5倍 */
+      .search_bar { width: 150%; max-width: 37.5rem; height: 2.5rem; margin-top: 2.5rem; }
+      #search_input { font-size: 0.95rem; }
+      #search_submit { font-size: 1.1rem; }
+      .box { width: 4.78125rem; margin: 0.1875rem; }
+      .nav-bookmarks .box { width: 5.0625rem; }
+      /* 中间内容图标放大1.5倍 */
+      .icon { 
+        width: 3.375rem !important; /* 2.25rem × 1.5 */
+        height: 3.375rem !important; /* 2.25rem × 1.5 */
+        max-width: none;
+      }
+      .url { width: 3rem; font-size: 0.8rem; -webkit-line-clamp: 2; }
+      #poem_sentence { font-size: 1.35rem; }
+      /* 底部时间日期放大1.5倍 */
+      #timeshow { 
+        font-size: 1.2rem !important; /* 0.8rem × 1.5 */
+        height: 1.3125rem !important; /* 0.875rem × 1.5 */
+        line-height: 1.3125rem !important; /* 0.875rem × 1.5 */
+        font-weight: 600;
+      }
+      #live2d-widget { width: 6.875rem; height: 9.375rem; bottom: 0.75rem; left: 0.75rem; }
+    }
+    @media (max-width: 30rem) { /* 480px - 移动设备，图标+时间放大1.5倍 */
+      .search_bar { width: 157.5%; max-width: 30rem; height: 2.375rem; margin-top: 2.375rem; }
+      #search_input { font-size: 0.85rem; }
+      #search_submit { font-size: 1rem; }
+      .box { width: 4.5rem; margin: 0.1875rem; }
+      .nav-bookmarks .box { width: 4.78125rem; }
+      /* 中间内容图标放大1.5倍 */
+      .icon { 
+        width: 2.953125rem !important; /* 1.96875rem × 1.5 */
+        height: 2.953125rem !important; /* 1.96875rem × 1.5 */
+        max-width: none;
+      }
+      .url { width: 2.625rem; font-size: 0.75rem; -webkit-line-clamp: 2; }
+      #poem_sentence { font-size: 1.35rem; }
+      /* 底部时间日期放大1.5倍 */
+      #timeshow { 
+        font-size: 1.125rem !important; /* 0.75rem × 1.5 */
+        height: 1.21875rem !important; /* 0.8125rem × 1.5 */
+        line-height: 1.21875rem !important; /* 0.8125rem × 1.5 */
+        font-weight: 600;
+      }
+      .bookmark-section, .nav-bookmarks { gap: 0.375rem; }
+      #live2d-widget { width: 6.25rem; height: 8.125rem; bottom: 0.5rem; left: 0.5rem; }
+    }
+    @media (max-width: 22.5rem) { /* 360px - 移动设备，图标+时间放大1.5倍 */
+      .search_bar { width: 140%; max-width: 26.25rem; height: 2.25rem; margin-top: 2.25rem; }
+      #search_input { font-size: 0.8rem; }
+      #search_submit { font-size: 0.9rem; }
+      .box { width: 4.21875rem; margin: 0.09375rem; }
+      .nav-bookmarks .box { width: 4.5rem; }
+      /* 中间内容图标放大1.5倍 */
+      .icon { 
+        width: 2.53125rem !important; /* 1.6875rem × 1.5 */
+        height: 2.53125rem !important; /* 1.6875rem × 1.5 */
+        max-width: none;
+      }
+      .url { width: 2.25rem; font-size: 0.65rem; -webkit-line-clamp: 2; }
+      #poem_sentence { font-size: 1.35rem; }
+      /* 底部时间日期放大1.5倍 */
+      #timeshow { 
+        font-size: 1.05rem !important; /* 0.7rem × 1.5 */
+        height: 1.125rem !important; /* 0.75rem × 1.5 */
+        line-height: 1.125rem !important; /* 0.75rem × 1.5 */
+        font-weight: 600;
+      }
+      #live2d-widget { width: 5.625rem; height: 7.5rem; bottom: 0.375rem; left: 0.375rem; }
+    }
+    /* 横竖屏适配 */
+    @media (orientation: landscape) { /* 横屏 */
+      .bookmark-section, .nav-bookmarks {
+        flex-wrap: wrap; justify-content: center; gap: 0.625rem;
+      }
+      .box { width: 5.5rem; }
+      .nav-bookmarks .box { width: 5.8rem; }
+    }
+  </style>
+  <!-- 粒子特效库 -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</head>
+<body>
+  <!-- 粒子特效容器 -->
+  <div id="particles-js"></div>
+  <!-- 看板娘 -->
+  <div id="live2d-widget">
+    <canvas id="live2dcanvas" width="300" height="300"></canvas>
+  </div>
+  <!-- 顶部搜索栏 -->
+  <div class="top-section">
+    <div class="search_part">
+      <form id="search_form" class="search_bar" onsubmit="return search()">
+        <div class="search_input_wrapper">
+          <input class="search" type="text" value="" onkeyup="get_suggest()" onfocus="get_suggest()" onpaste="get_suggest()" autocomplete="off" id="search_input" placeholder="✎...">
+        </div>
+        <input type="submit" id="search_submit" value="✢">
+        <div id="suggest" style="display:none">
+          <ul id="suglist"></ul>
+          <div class="close" onclick="close_sug()">| 收起</div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- 中间内容区域 -->
+  <div class="middle-section">
+    <!-- 书签区域 -->
+    <div class="bookmark-section">
+      <div class="box" style="--animation-order: 0">
+        <a href="https://illidan47.gitee.io/viapage/diylink.html"></a>
+        <p><img class="icon" src="https://s4.ax1x.com/2022/02/13/HDcQbR.png" alt="密集阵"></p>
+        <p class="url">密集阵</p>
+      </div>
+      <div class="box" style="--animation-order: 1">
+        <a href="http://pan.baidu.com/wap/home"></a>
+        <p><img class="icon" src="https://s4.ax1x.com/2022/02/13/HDcNxe.png" alt="毒盘"></p>
+        <p class="url">毒盘</p>
+      </div>
+      <div class="box" style="--animation-order: 2">
+        <a href="https://www.aliyundrive.com/drive"></a>
+        <p><img class="icon" src="https://s4.ax1x.com/2022/02/24/biVq6e.png" alt="阿里云盘"></p>
+        <p class="url">阿里云盘</p>
+      </div>
+      <div class="box" style="--animation-order: 3">
+        <a href="https://www.wikifeetx.com/"></a>
+        <p><img class="icon" src="https://s4.ax1x.com/2022/02/13/HDcMr9.png" alt="1024"></p>
+        <p class="url">1024</p>
+      </div>
+      <div class="box" style="--animation-order: 4">
+        <a href="http://3mo.net:2048/"></a>
+        <p><img class="icon" src="https://s4.ax1x.com/2022/02/13/HDct2D.png" alt="2048"></p>
+        <p class="url">2048</p>
+      </div>
+      <div class="box" style="--animation-order: 5">
+        <a href="http://sjgs2.lexun.cn/touch/bbs_listbymodel.aspx?forumid=9021&lxt=a25c6121047e7b13rvcvgtsxq&vs=2&_r=1475785424"></a>
+        <p><img class="icon" src="https://s4.ax1x.com/2022/02/13/HDce8U.png" alt="乐讯高手"></p>
+        <p class="url">乐讯高手</p>
+      </div>
+      <div class="box" style="--animation-order: 6">
+        <a href="http://www.52flac.com/"></a>
+        <p><img class="icon" src="https://s4.ax1x.com/2022/02/13/HDc856.png" alt="52flac"></p>
+        <p class="url">52flac</p>
+      </div>
+      <div class="box" style="--animation-order: 7">
+        <a href="https://trow.cc/"></a>
+        <p><img class="icon" src="https://s4.ax1x.com/2022/02/13/HDcY8O.jpg" alt="特珞"></p>
+        <p class="url">特珞</p>
+      </div>
+      <div class="box" style="--animation-order: 8">
+        <a href="https://mail.163.com/"></a>
+        <p><img class="icon" src="https://s4.ax1x.com/2022/02/13/HDcJPK.png" alt="163邮箱"></p>
+        <p class="url">163邮箱</p>
+      </div>
+      <div class="box" style="--animation-order: 9">
+        <a href="https://github.com/"></a>
+        <p><img class="icon" src="https://github.githubassets.com/favicons/favicon.svg" alt="GitHub"></p>
+        <p class="url">GitHub</p>
+      </div>
+    </div>
+    <!-- 一言（完全透明） -->
+    <div class="hitokoto" onclick="loadHitokoto()">
+      <p id="hitokoto">加载中...</p>
+    </div>
+    <!-- 书签、历史、主页收集 -->
+    <div class="nav-bookmarks">
+      <div class="box" style="--animation-order: 10">
+        <a href="folder://"></a>
+        <p><img class="icon" src="https://s4.ax1x.com/2022/02/13/HDckEq.png" alt="书签"></p>
+        <p class="url">书签</p>
+      </div>
+      <div class="box" style="--animation-order: 11">
+        <a href="history://"></a>
+        <p><img class="icon" src="https://s4.ax1x.com/2022/02/13/HDcZCT.png" alt="历史"></p>
+        <p class="url">历史</p>
+      </div>
+      <div class="box" style="--animation-order: 12">
+        <a href="https://tool.whgpc.com/Tools/viaPLUG/#/tabBar/plugin"></a>
+        <p><img class="icon" src="https://s4.ax1x.com/2022/02/13/HDc3Ux.png" alt="主页收集"></p>
+        <p class="url">主页收集</p>
+      </div>
+    </div>
+    <!-- 今日诗词（完全透明） -->
+    <div id="poem_container" onclick="openPoemModal()">
+      <div id="poem_sentence">
+        <div class="poem-skeleton"></div>
+      </div>
+      <div id="poem_info">
+        <div class="poem-info-skeleton"></div>
+      </div>
+    </div>
+  </div>
+  <!-- 诗词弹窗 -->
+  <div class="poem-modal" id="poemModal">
+    <div class="poem-modal-close" onclick="closePoemModal()">×</div>
+    <div class="poem-modal-content">
+      <div class="poem-modal-title" id="modalTitle"></div>
+      <div class="poem-modal-author" id="modalAuthor"></div>
+      <div class="poem-modal-sentence" id="modalContent"></div>
+      <div class="poem-modal-note" id="modalNote"></div>
+    </div>
+  </div>
+  <!-- 底部时间显示 -->
+  <div class="bottom-section">
+    <div id="timeshow"></div>
+  </div>
+
+  <script>
+    // 初始化粒子特效
+    particlesJS('particles-js', {
+      "particles": {
+        "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+        "color": { "value": "#ffffff" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.5, "random": true },
+        "size": { "value": 3, "random": true },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.2,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 1,
+          "direction": "none",
+          "random": true,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": { "enable": true, "mode": "grab" },
+          "onclick": { "enable": true, "mode": "push" },
+          "resize": true
+        },
+        "modes": {
+          "grab": { "distance": 140, "line_linked": { "opacity": 0.5 } },
+          "push": { "particles_nb": 4 }
+        }
+      },
+      "retina_detect": true
+    });
+
+    // 全局变量存储诗词完整数据
+    let fullPoemData = null;
+
+    // 1. 时间显示功能（年月日 星期 时分秒）
+    function updateTime() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      
+      const weekArr = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+      const week = weekArr[now.getDay()];
+      
+      const timeStr = `${year}-${month}-${day} ${week} ${hours}:${minutes}:${seconds}`;
+      document.getElementById('timeshow').textContent = timeStr;
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // 2. 问候语功能（十二时辰） - 更新页面标题
+    function updateGreeting() {
+      const d = new Date();
+      const time = d.getHours();
+      let greeting = '';
+      if (time >= 23 || time < 1) greeting = "子时：夜深人静";
+      else if (time >= 1 && time < 3) greeting = "丑时：万籁俱寂";
+      else if (time >= 3 && time < 5) greeting = "寅时：平旦启明";
+      else if (time >= 5 && time < 7) greeting = "卯时：日出东方";
+      else if (time >= 7 && time < 9) greeting = "辰时：食时已至";
+      else if (time >= 9 && time < 11) greeting = "巳时：隅中时分";
+      else if (time >= 11 && time < 13) greeting = "午时：日中正午";
+      else if (time >= 13 && time < 15) greeting = "未时：日昳正忙";
+      else if (time >= 15 && time < 17) greeting = "申时：晡时日落";
+      else if (time >= 17 && time < 19) greeting = "酉时：日入黄昏";
+      else if (time >= 19 && time < 21) greeting = "戌时：黄昏时分";
+      else greeting = "亥时：人定安眠";
+      
+      document.title = greeting;
+      return greeting;
+    }
+    // 初始更新标题
+    updateGreeting();
+    // 每分钟更新一次标题
+    setInterval(updateGreeting, 60000);
+
+    // 3. 搜索功能（回车+百度搜索）
+    function search() {
+      const query = document.getElementById('search_input').value.trim();
+      if (query) {
+        window.open('https://www.baidu.com/s?wd=' + encodeURIComponent(query), '_blank');
+      }
+      return false;
+    }
+    document.getElementById('search_input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') search();
+    });
+
+    // 4. 百度搜索建议（超时处理）
+    let timeoutId = null;
+    let currentRequest = null;
+    function get_suggest() {
+      const query = document.getElementById('search_input').value;
+      const suggestDiv = document.getElementById('suggest');
+      const suglist = document.getElementById('suglist');
+      
+      if (timeoutId) clearTimeout(timeoutId);
+      if (currentRequest) currentRequest.abort();
+      
+      if (!query.trim()) {
+        suggestDiv.style.display = 'none';
+        return;
+      }
+      
+      timeoutId = setTimeout(() => {
+        const url = `https://suggestion.baidu.com/su?wd=${encodeURIComponent(query)}&cb=handleSuggestion`;
+        const script = document.createElement('script');
+        script.src = url;
+        script.timeout = 10000;
+        
+        window.handleSuggestion = function(data) {
+          if (data && data.s && data.s.length > 0) {
+            suglist.innerHTML = '';
+            data.s.forEach(item => {
+              const li = document.createElement('li');
+              li.textContent = item;
+              li.onclick = function() {
+                document.getElementById('search_input').value = item;
+                suggestDiv.style.display = 'none';
+                search();
+              };
+              suglist.appendChild(li);
+            });
+            suggestDiv.style.display = 'block';
+          } else {
+            suggestDiv.style.display = 'none';
+          }
+          document.head.removeChild(script);
+        };
+        
+        script.ontimeout = function() {
+          suggestDiv.style.display = 'none';
+          document.head.removeChild(script);
+        };
+        script.onerror = function() {
+          suggestDiv.style.display = 'none';
+          document.head.removeChild(script);
+        };
+        
+        document.head.appendChild(script);
+        currentRequest = { abort: function() { 
+          try { document.head.removeChild(script); } catch(e) {}
+        }};
+      }, 500);
+    }
+    function close_sug() {
+      document.getElementById('suggest').style.display = 'none';
+    }
+    document.addEventListener('click', (e) => {
+      const suggestDiv = document.getElementById('suggest');
+      const searchBar = document.querySelector('.search_bar');
+      if (!searchBar.contains(e.target)) {
+        suggestDiv.style.display = 'none';
+      }
+    });
+
+    // 5. 一言加载（本地缓存30分钟）
+    function loadHitokoto() {
+      const hitokotoElement = document.getElementById('hitokoto');
+      if (!hitokotoElement) return;
+      hitokotoElement.textContent = '加载中...';
+      
+      const cacheHitokoto = localStorage.getItem('hitokoto');
+      const cacheTime = localStorage.getItem('hitokotoTime');
+      const now = Date.now();
+      
+      if (cacheHitokoto && cacheTime && now - cacheTime < 30 * 60 * 1000) {
+        hitokotoElement.textContent = cacheHitokoto;
+        return;
+      }
+      
+      fetch('https://v1.hitokoto.cn/?encode=text')
+        .then(response => response.text())
+        .then(text => {
+          hitokotoElement.textContent = text;
+          localStorage.setItem('hitokoto', text);
+          localStorage.setItem('hitokotoTime', now);
+        })
+        .catch(() => {
+          hitokotoElement.textContent = cacheHitokoto || '心有山海，静而无边';
+        });
+    }
+
+    // 6. 今日诗词加载（缓存+兜底）
+    let poemIntervalId = null;
+    function loadPoem() {
+      const sentenceEl = document.querySelector("#poem_sentence");
+      const infoEl = document.querySelector("#poem_info");
+      
+      const cachePoem = localStorage.getItem('poem');
+      const cachePoemTime = localStorage.getItem('poemTime');
+      const now = Date.now();
+      
+      if (cachePoem && cachePoemTime && now - cachePoemTime < 30 * 60 * 1000) {
+        const poemData = JSON.parse(cachePoem);
+        fullPoemData = poemData.fullData || {
+          title: poemData.title || '未知标题',
+          author: poemData.author || '未知作者',
+          dynasty: poemData.dynasty || '未知朝代',
+          content: poemData.content,
+          note: '暂无注释'
+        };
+        sentenceEl.innerHTML = poemData.content;
+        infoEl.innerHTML = poemData.info;
+        return;
+      }
+      
+      if (typeof jinrishici === 'undefined') {
+        const script = document.createElement('script');
+        script.src = 'https://sdk.jinrishici.com/v2/browser/jinrishici.js';
+        script.charset = 'utf-8';
+        script.onload = function() {
+          initPoemLoad();
+        };
+        script.onerror = function() {
+          const defaultContent = '春眠不觉晓，处处闻啼鸟';
+          const defaultInfo = '【唐】孟浩然《春晓》';
+          sentenceEl.innerHTML = defaultContent;
+          infoEl.innerHTML = defaultInfo;
+          fullPoemData = {
+            title: '春晓',
+            author: '孟浩然',
+            dynasty: '唐',
+            content: '春眠不觉晓，处处闻啼鸟。夜来风雨声，花落知多少。',
+            note: '这首诗描绘了春天早晨的美好景象，语言简洁自然，意境清新。'
+          };
+          localStorage.setItem('poem', JSON.stringify({
+            content: defaultContent,
+            info: defaultInfo,
+            fullData: fullPoemData
+          }));
+          localStorage.setItem('poemTime', now);
+        };
+        document.head.appendChild(script);
+      } else {
+        initPoemLoad();
+      }
+    }
+    function initPoemLoad() {
+      jinrishici.load(function(result) {
+        const poem = result.data;
+        const content = poem.content;
+        const info = `【${poem.origin.dynasty}】${poem.origin.author}《${poem.origin.title}》`;
+        const now = Date.now();
+        
+        fullPoemData = {
+          title: poem.origin.title,
+          author: poem.origin.author,
+          dynasty: poem.origin.dynasty,
+          content: poem.origin.content || content,
+          note: poem.note || '暂无注释'
+        };
+        
+        document.querySelector("#poem_sentence").innerHTML = content;
+        document.querySelector("#poem_info").innerHTML = info;
+        
+        localStorage.setItem('poem', JSON.stringify({
+          content: content,
+          info: info,
+          fullData: fullPoemData
+        }));
+        localStorage.setItem('poemTime', now);
+      }, function(error) {
+        const sentenceEl = document.querySelector("#poem_sentence");
+        const infoEl = document.querySelector("#poem_info");
+        const defaultContent = '床前明月光，疑是地上霜';
+        const defaultInfo = '【唐】李白《静夜思》';
+        const now = Date.now();
+        sentenceEl.innerHTML = defaultContent;
+        infoEl.innerHTML = defaultInfo;
+        fullPoemData = {
+          title: '静夜思',
+          author: '李白',
+          dynasty: '唐',
+          content: '床前明月光，疑是地上霜。举头望明月，低头思故乡。',
+          note: '这首诗用简洁的语言表达了游子的思乡之情，流传千古。'
+        };
+        localStorage.setItem('poem', JSON.stringify({
+          content: defaultContent,
+          info: defaultInfo,
+          fullData: fullPoemData
+        }));
+        localStorage.setItem('poemTime', now);
+      });
+    }
+
+    // 诗词弹窗控制
+    function openPoemModal() {
+      if (!fullPoemData) return;
+      const modal = document.getElementById('poemModal');
+      document.getElementById('modalTitle').textContent = fullPoemData.title;
+      document.getElementById('modalAuthor').textContent = `【${fullPoemData.dynasty}】${fullPoemData.author}`;
+      document.getElementById('modalContent').textContent = fullPoemData.content;
+      document.getElementById('modalNote').textContent = fullPoemData.note;
+      modal.classList.add('active');
+    }
+    function closePoemModal() {
+      const modal = document.getElementById('poemModal');
+      modal.classList.remove('active');
+    }
+    document.getElementById('poemModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('poemModal')) {
+        closePoemModal();
+      }
+    });
+
+    // 看板娘功能（拖拽+双击切换位置）
+    (function() {
+      if (typeof loadlive2d !== 'function') {
+        const script = document.createElement('script');
+        script.src = 'https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js';
+        document.head.appendChild(script);
+      }
+      
+      const modelConfig = {
+        modelId: 1,
+        modelTexturesId: 51
+      };
+      
+      const widget = document.getElementById('live2d-widget');
+      let isDragging = false;
+      let currentX;
+      let currentY;
+      let initialX;
+      let initialY;
+      let xOffset = 0;
+      let yOffset = 0;
+      widget.addEventListener('mousedown', dragStart, false);
+      document.addEventListener('mouseup', dragEnd, false);
+      document.addEventListener('mousemove', drag, false);
+      function dragStart(e) {
+        initialX = e.clientX - xOffset;
+        initialY = e.clientY - yOffset;
+        if (e.target === widget || e.target.tagName === 'CANVAS') {
+          isDragging = true;
+        }
+      }
+      function dragEnd(e) {
+        initialX = currentX;
+        initialY = currentY;
+        isDragging = false;
+      }
+      function drag(e) {
+        if (isDragging) {
+          e.preventDefault();
+          currentX = e.clientX - initialX;
+          currentY = e.clientY - initialY;
+          xOffset = currentX;
+          yOffset = currentY;
+          setTranslate(currentX, currentY, widget);
+        }
+      }
+      function setTranslate(xPos, yPos, el) {
+        el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+      }
+      widget.addEventListener('dblclick', function() {
+        const currentBottom = parseInt(getComputedStyle(widget).bottom);
+        const currentLeft = parseInt(getComputedStyle(widget).left);
+        const windowWidth = window.innerWidth;
+        
+        if (currentLeft < windowWidth / 2) {
+          widget.style.left = 'auto';
+          widget.style.right = '15px';
+          widget.style.bottom = '15px';
+        } else {
+          widget.style.right = 'auto';
+          widget.style.left = '15px';
+          widget.style.bottom = '15px';
+        }
+      });
+    })();
+
+    // 页面初始化（加载一言+诗词）
+    document.addEventListener('DOMContentLoaded', function() {
+      loadHitokoto();
+      loadPoem();
+      setInterval(loadHitokoto, 30000);
+      poemIntervalId = setInterval(loadPoem, 180000);
+    });
+  </script>
+</body>
+</html>
