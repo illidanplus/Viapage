@@ -35,152 +35,164 @@ body {
 边界半径︰ 50px
 */
 
-#search_input {
-	width: 95%;
-	height: 40px;
-	background-color: transparent;
-	border: none;
-	outline: 0;
-	font-size: 1.5rem;
-	color: #70DB93;
-	padding: 0 10px;
-	border-radius: 50px
+/* 搜索模块样式 */
+#content {
+    width: 100%;
+    padding: 25px 0 15px;
 }
-
-/*翻译
-搜索栏搜索目标确认图标样式
-轮廓边框︰ 0;
-高度︰ 40px;
-浮标位置︰ 右;
-颜色: #4a4266;
-字体大小︰ 18px;
-字体粗细︰ 500;
-边境︰ 无;
-背景颜色︰ 透明;
-填充︰ 0 13px 0 13px
-*/
-#search_submit {
-	outline: 0;
-	height: 40px;
-	float: right;
-	color: #4a4266;
-	font-size: 1.5rem;
-	font-weight: 500;
-	border: none;
-	background-color: transparent;
-	padding: 0 13px 0 13px
-}
-
-/*翻译
-搜索框边距 
-下边距︰ 10px;
-上边距︰ 90px;
-*/
 
 .search_part {
-	margin-top: -3.5rem;
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
-
-/*翻译
-搜索栏框架样式 {
-框阴影︰ 0 0 5px rgba(70,70,40,255);括号里的颜色为Rgb默认，可进入http://rgb.phpddt.com/查询
--webkit 动画︰ fadeIn 2.5s;
-动画︰ fadeIn 2.5s;
-背景色︰ rgba(255,255,255,100);
-边界半径︰ 3px;
-显示︰ 表;
-垂直对齐︰ 居中;
-宽度︰ 80~90%;
-高度︰ 20px;
-最大宽度︰ 400px;
-边距︰ 10px 自动布局;
-}
-*/
 
 .search_bar {
-	box-shadow: 0 0 5px rgba(70,70,40,255);
-	-webkit-animation: fadeIn 2.5s;
-	animation: fadeIn 2.5s;
-	background-color: transparent;
-	border-radius: 3px;
-	display: table;
-	vertical-align: middle;
-	width: 90%;
-	height: 20px;
-	max-width: 55rem;
-	margin: 10px auto;
-	position: relative;
-	z-index: 1;
+    box-shadow: 0 0 5px rgba(70, 70, 40, 0.3); /* 阴影透明度降低，适配透明背景 */
+    animation: fadeIn 2.5s;
+    background-color: rgba(255, 255, 255, 0.15) !important; /* 搜索框背景半透明 */
+    border-radius: 8px; /* 圆角优化 */
+    display: table;
+    vertical-align: middle;
+    width: 90%;
+    max-width: 55rem;
+    margin: 10px auto;
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(5px); /* 毛玻璃效果，提升视觉体验 */
+    -webkit-backdrop-filter: blur(5px); /* 兼容webkit内核 */
 }
 
-/*翻译
-跨度样式
-显示︰ 阻止;
-字体大小：12px;
-溢出︰ 隐藏;
-左填充︰ 2px;
-右边距：42px;
-垂直对齐︰ 居中;
-*/
+#search_submit {
+    outline: none;
+    height: 40px;
+    float: right;
+    color: #4a4266;
+    font-size: 1.5rem;
+    font-weight: 500;
+    border: none;
+    background-color: transparent;
+    padding: 0 13px;
+    cursor: pointer;
+    /* 搜索按钮按压反馈 */
+    transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+#search_submit:active {
+    transform: scale(0.95);
+    opacity: 0.8;
+}
+
 .search_bar span {
-	display: block;
-	font-size: 0.75rem;
-	overflow: hidden;
-	padding-left: 2px;
-	margin-right: 42px;
-	vertical-align: middle;
+    display: block;
+    font-size: 0.75rem;
+    overflow: hidden;
+    padding-left: 2px;
+    margin-right: 42px;
+    vertical-align: middle;
 }
-.search_bar span i {
-	display:none;
-	float: right;
-	width: 35px;
-	height: 40px;
-	background: none no-repeat center;
-	background-size: 1rem;
+
+/* 清除按钮样式优化 */
+.search_bar span i#clear {
+    display: none;
+    float: right;
+    width: 35px;
+    height: 40px;
+    background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE5IDYuNDFMMTcuNTkgNSIDEyIDEwLjU5IDYuNDEgNSA1IDYuNDEgMTAuNTkgMTIgNSAxNy41OSA2LjQxIDE5IDEyIDEzLjQxIDE3LjU5IDE5IDE5IDE3LjU5IDEzLjQxIDEyTTEyIDE1YzEuNjYgMCAzLTEuMzQgMy0zcy0xLjM0LTMtMy0zLTNhMyAzIDAgMCAwIDAgNnoiIGZpbGw9IiM3MEM5MzMiLz48L3N2Zz4=) no-repeat center;
+    background-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.1s ease, opacity 0.1s ease;
 }
+
+.search_bar span i#clear:active {
+    transform: scale(0.9);
+    opacity: 0.7;
+}
+
 .search_bar .si {
-	margin: 0 38px 0 10px;
+    margin: 0 38px 0 10px;
 }
 
-/*翻译
-书签图标排版目录样式 
-宽度︰ 100%;
-文本对齐︰ 居中;
-填充顶部︰ 25px;
-填充底部︰ 15px;
-*/
+#search_input {
+    width: 95%;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 1.5rem;
+    color: #70DB93;
+    padding: 0 10px;
+    border-radius: 50px;
+}
 
-/*搜索建议条*/
+/* 百度搜索占位符样式 */
+#search_input::placeholder {
+    color: #99ccaa;
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+/* 搜索建议样式 - 背景半透明 */
 #suggest {
-	position: absolute;
-	left: -1px;
-	right: -1px;
-	top: 40px;
-	border:1px solid #ccc;
-	background: #fff;
-	line-height: 40px;
+    position: absolute;
+    left: -1px;
+    right: -1px;
+    top: 40px;
+    border: 1px solid rgba(204, 204, 204, 0.3);
+    background: rgba(255, 255, 255, 0.9); /* 建议面板背景半透明 */
+    line-height: 40px;
+    z-index: 10;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
 }
+
+#suggest ul#suglist {
+    list-style: none;
+}
+
 #suggest li {
-	border-bottom: 1px solid #ccc;
-	text-align: left;
-	padding-left: 16px;
+    border-bottom: 1px solid rgba(238, 238, 238, 0.5);
+    text-align: left;
+    padding-left: 16px;
+    cursor: pointer;
+    color: #333;
+    transition: background-color 0.2s ease;
 }
-#suggest li:active {
-	background: #F0F0F0;
+
+#suggest li:last-child {
+    border-bottom: none;
 }
+
+#suggest li:hover, #suggest li:active {
+    background: rgba(245, 245, 245, 0.8);
+}
+
 #suggest li b {
-	float: right;
-	width: 44px;
-	height: 40px;
-	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAI5JREFUSEtjZCACLF261J6RkbELpPT///9l0dHRB4nQRlgJ0ODny5Yt+w/CIDZhHUSqgBkKo4nURljZqMHwMBohQQFK/ECvnkT3LgX8kyAzGZATPwWGgTMPSiYCGvyEWgYiGfyEAcjxoKaroWZ5EM52QBUjJLkRExajQUH7Qgg5E4HYxMQLUWpgmYiUxA8AOdLMz+iDKvIAAAAASUVORK5CYII=) no-repeat scroll center center #fff;
-	background-size: 11px;
+    float: right;
+    width: 44px;
+    height: 40px;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAI5JREFUSEtjZCACLF261J6RkbELpPT///9l0dHRB4nQRlgJ0ODny5Yt+w/CIDZhHUSqgBkKo4nURljZqMHwMBohQQFK/ECvnkT3LgX8kyAzGZATPwWGgTMPSiYCGvyEWgYiGfyEAcjxoKaroWZ5EM52QBUjJLkRExajQUH7Qgg5E4HYxMQLUWpgmYiUxA8AOdLMz+iDKvIAAAAASUVORK5CYII=) no-repeat scroll center center transparent;
+    background-size: 11px;
 }
+
 #suggest .close {
-	text-align: right;
-	font-size: 14px;
-	color: #888;
-	padding-right: 12px;
+    text-align: right;
+    font-size: 14px;
+    color: #888;
+    padding-right: 12px;
+    cursor: pointer;
+    border-top: 1px solid rgba(238, 238, 238, 0.5);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#suggest .close:hover {
+    color: #555;
+    background: rgba(249, 249, 249, 0.8);
+}
+
+#suggest .close:active {
+    background: rgba(238, 238, 238, 0.8);
+    transform: scale(0.98);
 }
 
 #content {
@@ -199,97 +211,147 @@ body {
 宽度︰ 75px;
 边境︰ 0;
 */
+/* 特殊链接容器（书签、历史、主页收集）- 居中显示 */
+.special-links-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 15px 0;
+    margin: 0 auto;
+    max-width: 400px; /* 限制宽度，确保居中紧凑 */
+}
+
 .box {
-	-webkit-animation: fadeInDown 1s;
-	animation: fadeInDown 1s;
-	position: relative;
-	display: inline-block;
-	width: 75px;
-	border: 0;
+    animation: fadeInDown 1s;
+    position: relative;
+    display: inline-block;
+    width: 75px;
+    border: 0;
+    cursor: pointer;
+    /* 核心：添加按压反馈基础样式 + 背景半透明，移除box-shadow */
+    background-color: transparent;
+    transition: all 0.15s ease;
+    transform-origin: center center;
+    border-radius: 8px;
+    padding: 8px 4px;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
 }
 
-/*翻译
-书签图标样式
-宽度︰ 100%;
-高度︰ 100%;
-位置︰ 不受限制;
-左︰ 0;
-顶︰ 0;
-*/
+/* 鼠标悬停效果（桌面端）- 移除阴影，仅保留背景和位移变化 */
+.box:hover {
+    transform: translateY(-2px);
+    background-color: transparent;
+}
+
+/* 按压效果（点击/触摸）- 移除阴影变化 */
+.box:active {
+    transform: scale(0.92) translateY(0);
+    opacity: 0.85;
+    background-color: transparent;
+}
+
+/* 修复a标签覆盖层，确保点击生效 */
 .box a {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	left: 0;
-	top: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1; /* 确保a标签在最上层，不遮挡点击 */
 }
 
-/*翻译
-书签字体样式
-颜色: #232323;使用夜间模式时修改为#eee或者#f2eada即可
-高度︰ 1.5em;
-线的高度︰ 1.5em;
-宽度︰ 72px;
-字体大小︰ 1em;
-白色空间︰ nowrap;
-溢出︰ 隐藏;
-边距︰ 自动布局;
--webkit 边框顶部右半径︰ 5px;
--webkit 边框底部右半径︰ 5px;
-文本溢出︰ 省略;
--o 文本溢出︰ 省略;
-气相色谱-质谱-文本溢出︰ 省略;
-填充顶部︰ 3px;
-填充底部︰ 8px;
-*/
-.url {
-	color: #70DB93;
-	height: 1.5rem;
-	line-height: 1.5rem;
-	width: 4.5rem;
-	font-size: 1rem;
-	white-space: nowrap;
-	overflow: hidden;
-	margin: auto;
-	-webkit-border-top-right-radius: 5px;
-	-webkit-border-bottom-right-radius: 5px;
-	text-overflow: ellipsis;
-	-o-text-overflow: ellipsis;
-	-ms-text-overflow: ellipsis;
-	padding-top: 3px;
-	padding-bottom: 0.5rem;
-}
-
-/*翻译
-字体样式 
-宽度︰ 3em;
-高度︰ 3em;
-最大宽度︰ 72px;
-*/
+/* 图标样式 - 移除所有阴影相关属性，确保边缘无阴影 */
 .icon {
-	width: 3rem;
-	height: 3rem;
-	max-width: 4.5rem;
+    width: 3rem;
+    height: 3rem;
+    max-width: 4.5rem;
+    object-fit: contain;
+    transition: all 0.1s ease;
+    /* 明确移除图标可能的阴影/描边 */
+    box-shadow: none !important;
+    filter: drop-shadow(0 0 0 transparent) !important;
+    border: none !important;
+    outline: none !important;
+}
+
+.box:active .icon {
+    transform: scale(0.95);
+    filter: brightness(0.9) drop-shadow(0 0 0 transparent) !important;
+}
+
+/* 文字按压反馈 */
+.url {
+    color: #70DB93;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    width: 4.5rem;
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: auto;
+    border-radius: 0 5px 5px 0;
+    text-overflow: ellipsis;
+    padding: 3px 0 0.5rem;
+    transition: color 0.1s ease;
+}
+
+.box:active .url {
+    color: #5cb878; /* 按压时文字颜色加深 */
 }
 
 
-/*两言设置*/
-#app-items {  
-	position: relative;
-	width: 100%;
-	max-width: 400px;
-	margin: 0px auto;
-	text-align: center;
+
+/* 一言模块样式 - 背景半透明 */
+#app-items {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
     color: #70DB93;
     font-size: 1rem;
-	background-color: transparent;
-	padding-top: 0px;
-	padding-bottom: 15px;
+    background-color: transparent;
+    padding: 10px 20px;
+    border-radius: 8px;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
 }
 
-/*两言设置*/
+/* 今日诗词模块 - 楷书样式 + 布局优化 + 背景半透明 */
+.poem-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 15px 20px;
+    background-color: transparent;
+    border-radius: 8px;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
 
-#timeshow{width:100%; height:3.5rem; line-height:3.5rem;color: #70DB93;}
+#poem_sentence, #poem_info {
+    color: #70DB93;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin: 0.5rem auto;
+    max-width: 600px;
+    transition: all 0.2s ease;
+    /* 楷书字体设置（优先系统楷书，其次备选） */
+    font-family: "楷体", "KaiTi", "STKaiti", "SimKai", "AR PL UKai CN", "AR PL UKai HK", "AR PL UKai TW", "AR PL UKai TW MBE", "AR PL KaitiM GB", "KaiTi TC", "KaiTi SC", serif;
+}
+
+#poem_sentence {
+    font-size: 1.4rem; /* 诗句字号稍大 */
+    font-weight: 500;
+}
+
+#poem_info {
+    font-size: 1rem; /* 作者/朝代字号稍小 */
+    opacity: 0.9;
+}
+
+#timeshow{width:100%; height:3.5rem; line-height:5rem;color: #70DB93;}
 
 /*翻译:以下为页面效果，千万勿动！！！*/
 @-webkit-keyframes flipInX {
