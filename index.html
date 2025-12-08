@@ -7,38 +7,37 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet icon" href="img/icon.svg" />
 <title id="title">尤龍的移动导航</title>
-<script type="text/javascript">
-var d = new Date()
-var time = d.getHours()
-if (time < 24) 
-{
-document.getElementById("title").innerHTML="应该睡了!";
-}
-if (time < 22) 
-{
-document.getElementById("title").innerHTML="准备睡了!";
-}
-if (time < 20) 
-{
-document.getElementById("title").innerHTML="还能搞事!";
-}
-if (time < 18) 
-{
-document.getElementById("title").innerHTML="下午搬砖!";
-}
-if (time < 12) 
-{
-document.getElementById("title").innerHTML="上午搬砖!";
-}
-if (time < 7) 
-{
-document.getElementById("title").innerHTML="起来搬砖!";
-}
-if (time < 5) 
-{
-document.getElementById("title").innerHTML="还能睡会!";
-}
-</script>
+ <!-- 标题动态更新：十二时辰 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hours = new Date().getHours();
+            const titleEl = document.getElementById('title');
+            // 十二时辰对应表（每个时辰2小时）
+            const shichenMap = [
+                { start: 23, end: 1, name: '子时', desc: '夜半，宜安歇' },
+                { start: 1, end: 3, name: '丑时', desc: '鸡鸣，宜深睡' },
+                { start: 3, end: 5, name: '寅时', desc: '平旦，天欲明' },
+                { start: 5, end: 7, name: '卯时', desc: '日出，宜起身' },
+                { start: 7, end: 9, name: '辰时', desc: '食时，宜早餐' },
+                { start: 9, end: 11, name: '巳时', desc: '隅中，宜专注' },
+                { start: 11, end: 13, name: '午时', desc: '日中，宜小憩' },
+                { start: 13, end: 15, name: '未时', desc: '日昳，宜工作' },
+                { start: 15, end: 17, name: '申时', desc: '晡时，宜精进' },
+                { start: 17, end: 19, name: '酉时', desc: '日入，宜放松' },
+                { start: 19, end: 21, name: '戌时', desc: '黄昏，宜休憩' },
+                { start: 21, end: 23, name: '亥时', desc: '人定，宜入眠' }
+            ];
+            // 匹配当前时辰（处理子时跨天情况）
+            let currentShichen;
+            if (hours >= 23 || hours < 1) {
+                currentShichen = shichenMap[0];
+            } else {
+                currentShichen = shichenMap.find(item => hours >= item.start && hours < item.end);
+            }
+            // 更新标题
+            titleEl.textContent = `${currentShichen.name} · ${currentShichen.desc} | 尤龍的移动导航`;
+        });
+    </script>
 </head>
 
 <body>
@@ -46,39 +45,27 @@ document.getElementById("title").innerHTML="还能睡会!";
 <canvas id="sakura" width="device-width" height="device-height"></canvas>
 <!--画布定义-->
 
-<!--天气模块-->
-<div id="he-plugin-standard"></div>
-<script>
-WIDGET = {
-  "CONFIG": {
-    "layout": "1",
-    "width": "390",
-    "height": "180",
-    "background": "5",
-    "dataColor": "FFFFFF",
-    "borderRadius": "5",
-    "key": "67c16c9a2bd94949b7a7ea8c8b31c0c0"
-  }
-}
-</script>
-<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
-<!--天气模块-->
+<!-- 搜索模块（百度搜索） -->
+    <div id="content">
+        <div class="search_part">
+            <form id="search_form" onsubmit="return search()" class="search_bar">
+                <input type="submit" id="search_submit" value="✢">
+                <span>
+                    <i id="clear" onclick="clear_seach()"></i>
+                    <div class="si">
+                        <input class="search" type="text" id="search_input" 
+                               placeholder="✎..." autocomplete="off"
+                               onkeyup="getBaiduSuggest()" onfocus="getBaiduSuggest()" onpaste="getBaiduSuggest()">
+                    </div>
+                </span>
+                <div id="suggest" style="display:none">
+                    <ul id="suglist"></ul>
+                    <div class="close" onclick="close_sug()">| 收起</div>
+                </div>
+            </form>
+        </div>
+    </div>
 
-<!--搜索模块-->
-<div id="content" >
-<div class="search_part">
-<br><br>
-<form id="search_form" onsubmit="return search()" class="search_bar">
-<input type="submit" id="search_submit" value="✢">
-<span><i id="clear" onclick="clear_seach()"></i><div class="si"><input class="search" type="text" value="" onkeyup="get_suggest()" onfocus="get_suggest()" onpaste="get_suggest()" autocomplete="off" id="search_input" placeholder="✎..."></div>
-</span>
-<div id="suggest" style="display:none">
-	<ul id="suglist"></ul>
-	<div class="close" onclick="close_sug()">| 收起</div>
-</div>
-</form>
-</div>
-</div>
 <!--搜索模块-->
 
 <div class="box">
